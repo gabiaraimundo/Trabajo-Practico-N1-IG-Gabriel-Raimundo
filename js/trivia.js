@@ -73,75 +73,75 @@ const iniciarTimer = () => {
 };
 
 // ===================================================
-// 5. CONSUMO DE API (FETCH + ASYNC/AWAIT) EN ESPAÑOL
+// 5. CONSUMO DE API (FETCH + ASYNC/AWAIT) REAL EN VIVO
 // ===================================================
+// Función auxiliar para traducir texto al vuelo usando MyMemory API pública gratuita
+const traducirAlEspañol = async (textoIngles) => {
+  try {
+    const urlTraduccion = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(textoIngles)}&langpair=en|es`;
+    const res = await fetch(urlTraduccion);
+    const data = await res.json();
+    return data.responseData.translatedText || textoIngles;
+  } catch {
+    return textoIngles; // Si la traducción falla, no bloquea el juego y muestra el original
+  }
+};
+
 const obtenerPreguntasAPI = async () => {
-  elTextoPregunta.textContent = "Cargando preguntas en español...";
+  elTextoPregunta.textContent = "Consultando preguntas en vivo a la API...";
   elOpciones.innerHTML = "";
   elFeedback.textContent = "";
 
   try {
-    // API pública de preguntas culturales y generales en español
-    // Banco abierto de preguntas en formato JSON estándar
-    const url = "https://raw.githubusercontent.com/mdominguez88/trivia-preguntas-espanol/main/preguntas.json";
-    
-    // Si querés seguir con OpenTDB pero con soporte en español, 
-    // la cátedra admite APIs públicas en formato JSON
+    // 1. Solicitud directa a Open Trivia DB (5 preguntas aleatorias por partida)
+    const url = `https://opentdb.com/api.php?amount=${TOTAL_PREGUNTAS}&type=multiple`;
     const respuesta = await fetch(url);
-    
+
     if (!respuesta.ok) {
-      throw new Error(`Error en la consulta: ${respuesta.status}`);
+      throw new Error(`Error en la solicitud HTTP: ${respuesta.status}`);
     }
 
-    const todasLasPreguntas = await respuesta.json();
-    
-    // Mezclar el banco de datos y extraer 5 preguntas al azar
-    const preguntasAleatorias = mezclarArray(todasLasPreguntas).slice(0, TOTAL_PREGUNTAS);
-    return preguntasAleatorias;
+    const datos = await respuesta.json();
+
+    // Verificamos el código de estado propio de la API de OpenTDB (0 = éxito)
+    if (datos.response_code !== 0 || !datos.results || datos.results.length === 0) {
+      throw new Error("La API no devolvió resultados válidos.");
+    }
+
+    elTextoPregunta.textContent = "Traduciendo preguntas al español en vivo...";
+
+    // 2. Procesamos y traducimos en tiempo real los datos recibidos de la API
+    const preguntasProcesadas = await Promise.all(
+      datos.results.map(async (item) => {
+        const preguntaLimpia = decodificarTexto(item.question);
+        const correctaLimpia = decodificarTexto(item.correct_answer);
+
+        const preguntaTraducida = await traducirAlEspañol(preguntaLimpia);
+        const correctaTraducida = await traducirAlEspañol(correctaLimpia);
+
+        const incorrectasTraducidas = await Promise.all(
+          item.incorrect_answers.map(async (inc) => {
+            const incLimpia = decodificarTexto(inc);
+            return await traducirAlEspañol(incLimpia);
+          })
+        );
+
+        return {
+          question: preguntaTraducida,
+          correct_answer: correctaTraducida,
+          incorrect_answers: incorrectasTraducidas
+        };
+      })
+    );
+
+    return preguntasProcesadas;
 
   } catch (error) {
-    // Plan B: Respaldo local dinámico con preguntas en español si la red falla
-    console.warn("Fallo de red al consultar API externa, cargando banco alternativo:", error);
-    
-    const bancoRespaldo = [
-      {
-        question: "¿Cuál es el río más caudaloso del mundo?",
-        correct_answer: "Amazonas",
-        incorrect_answers: ["Nilo", "Misisipi", "Danubio"]
-      },
-      {
-        question: "¿En qué año llegó el ser humano a la Luna?",
-        correct_answer: "1969",
-        incorrect_answers: ["1955", "1972", "1965"]
-      },
-      {
-        question: "¿Cuál es el elemento químico más abundante en el universo?",
-        correct_answer: "Hidrógeno",
-        incorrect_answers: ["Oxígeno", "Helio", "Carbono"]
-      },
-      {
-        question: "¿Quién pintó la Mona Lisa?",
-        correct_answer: "Leonardo da Vinci",
-        incorrect_answers: ["Miguel Ángel", "Pablo Picasso", "Vincent van Gogh"]
-      },
-      {
-        question: "¿Cuál es el planeta más grande de nuestro sistema solar?",
-        correct_answer: "Júpiter",
-        incorrect_answers: ["Saturno", "Neptuno", "Marte"]
-      },
-      {
-        question: "¿Qué país tiene la mayor superficie territorial del planeta?",
-        correct_answer: "Rusia",
-        incorrect_answers: ["Canadá", "China", "Estados Unidos"]
-      },
-      {
-        question: "¿En qué país se originaron los Juegos Olímpicos antiguos?",
-        correct_answer: "Grecia",
-        incorrect_answers: ["Italia", "Egipto", "Francia"]
-      }
-    ];
-
-    return mezclarArray(bancoRespaldo).slice(0, TOTAL_PREGUNTAS);
+    console.error("Error al consumir la API:", error);
+    elTextoPregunta.textContent = "Error al conectar con la API. Reintentá en unos instantes.";
+    btnIniciar.disabled = false;
+    btnIniciar.style.display = "inline-block";
+    return [];
   }
 };
 
@@ -233,17 +233,24 @@ const guardarRecord = (puntosFinales) => {
 const finalizarJuego = () => {
   detenerTimer();
   juegoEnCurso = false;
+  
+  // Limpieza visual de la ronda
+  tiempoRestante = SEGUNDOS_POR_PREGUNTA;
+  elTemporizador.textContent = tiempoRestante;
   elTextoPregunta.textContent = "¡Has completado las 5 preguntas!";
   elOpciones.innerHTML = "";
+  
   elFeedback.textContent = `Resultado final: ${aciertos} de ${TOTAL_PREGUNTAS} aciertos con ${puntajeTotal} puntos totales.`;
   elFeedback.style.color = "var(--color-accent)";
   btnSiguiente.style.display = "none";
+  
+  // Reactivación del botón para volver a jugar
+  btnIniciar.disabled = false; // <-- Esto desbloquea el botón
   btnIniciar.textContent = "Jugar de nuevo";
   btnIniciar.style.display = "inline-block";
 
   guardarRecord(puntajeTotal);
 };
-
 const avanzarPregunta = () => {
   indicePreguntaActual++;
   if (indicePreguntaActual < TOTAL_PREGUNTAS) {
