@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego de Cartas | Arcade IG2026</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <!-- Encabezado semántico y Menú de navegación obligatorio -->
+  <header>
+    <a href="index.html" class="logo">Arcade IG2026</a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="cartas.html" class="activo">Cartas</a></li>
+        <li><a href="dados.html">Dados</a></li>
+        <li><a href="trivia.html">Trivia</a></li>
+        <li><a href="puntajes.html">Puntajes</a></li>
+        <li><a href="creditos.html">Créditos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Explicación de reglas y UX clara -->
+    <section class="panel">
+      <h2>Mayor o Menor</h2>
+      <p>Adiviná si la siguiente carta será de mayor o menor valor que la actual. Si acertás sumás 100 puntos; si fallás, perdés una vida.</p>
+    </section>
+
+    <!-- Tablero interactivo manipulado por JavaScript -->
+    <section class="panel tablero-juego">
+      <div class="indicador-estado">
+        <span>Vidas: <span id="vidas">3</span> ❤️</span>
+        <span>Puntos: <span id="puntos">0</span></span>
+        <span>Ronda: <span id="ronda">1</span> / 10</span>
+      </div>
+
+      <!-- Zona de imágenes obligatoria según consigna -->
+      <div class="zona-visual" id="zona-cartas">
+        <img id="carta-actual" src="img/cartas/dorso.png" alt="Carta en juego">
+      </div>
+
+      <!-- Feedback de estado para el usuario -->
+      <p id="mensaje-estado">Presioná un botón para comenzar la ronda.</p>
+
+      <div class="acciones">
+        <button id="btn-menor" class="btn">Menor</button>
+        <button id="btn-mayor" class="btn">Mayor</button>
+        <button id="btn-reiniciar" class="btn btn-secondary">Reiniciar</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Informática General 2026 - Trabajo Práctico 1</p>
+  </footer>
+
+  <script src="js/cartas.js"></script>
+</body>
+</html>

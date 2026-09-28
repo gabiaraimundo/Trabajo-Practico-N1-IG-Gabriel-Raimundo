@@ -1,0 +1,213 @@
+/* ===================================================
+   RESET Y VARIABLES GLOBALES
+   =================================================== */
+:root {
+  --color-bg: #12151e;
+  --color-card: #1c2234;
+  --color-card-border: #2e3856;
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-accent: #f59e0b;
+  --color-text: #f8fafc;
+  --color-muted: #94a3b8;
+  --color-danger: #ef4444;
+  --color-success: #10b981;
+  --font-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-base);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===================================================
+   ENCABEZADO Y NAVEGACIÓN
+   =================================================== */
+header {
+  background-color: var(--color-card);
+  border-bottom: 1px solid var(--color-card-border);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: var(--color-muted);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+nav a:hover,
+nav a.activo {
+  color: var(--color-text);
+  background-color: var(--color-card-border);
+}
+
+/* ===================================================
+   CONTENEDOR PRINCIPAL
+   =================================================== */
+main {
+  flex: 1;
+  max-width: 900px;
+  width: 90%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Tarjetas y Paneles */
+.panel {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-card-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+h1, h2, h3 {
+  margin-bottom: 0.75rem;
+}
+
+p {
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+/* ===================================================
+   BOTONES E INPUTS
+   =================================================== */
+.btn {
+  display: inline-block;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-decoration: none;
+}
+
+.btn:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: var(--color-card-border);
+  color: var(--color-text);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #3f4d75;
+}
+
+/* ===================================================
+   COMPONENTES DE JUEGO (ESTADOS Y ELEMENTOS)
+   =================================================== */
+.tablero-juego {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.zona-visual {
+  min-height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.zona-visual img {
+  max-height: 140px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.indicador-estado {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.acciones {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Tabla de récords */
+.tabla-records {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.tabla-records th,
+.tabla-records td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-card-border);
+}
+
+.tabla-records th {
+  color: var(--color-accent);
+}
+
+/* ===================================================
+   FOOTER
+   =================================================== */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: var(--color-card);
+  border-top: 1px solid var(--color-card-border);
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
