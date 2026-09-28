@@ -14,16 +14,43 @@
     <nav>
       <ul>
         <li><a href="index.html">Inicio</a></li>
-        <li><a href="cartas.html" class="activo">Cartas</a></li>
+        <li><a href="cartas.html">Cartas</a></li>
         <li><a href="dados.html">Dados</a></li>
-        <li><a href="trivia.html">Trivia</a></li>
+        <li><a href="trivia.html" class="activo">Trivia</a></li>
         <li><a href="puntajes.html">Puntajes</a></li>
         <li><a href="creditos.html">Créditos</a></li>
       </ul>
     </nav>
   </header>
 
-  
+  <main>
+    <section class="panel">
+      <h2>Trivia Contrarreloj</h2>
+      <p>Respondé 5 preguntas cargadas en vivo desde Open Trivia DB. Tenés 15 segundos por pregunta: ¡cuanto más rápido respondas, más puntos sumás!</p>
+    </section>
+
+    <section class="panel tablero-juego">
+      <div class="indicador-estado">
+        <span>Tiempo: <span id="temporizador">15</span>s ⏳</span>
+        <span>Aciertos: <span id="aciertos">0</span> / 5</span>
+        <span>Puntaje: <span id="puntaje-trivia">0</span></span>
+      </div>
+
+      <div id="contenedor-pregunta" style="width: 100%; margin: 1rem 0;">
+        <h3 id="texto-pregunta" style="min-height: 4rem;">Cargando preguntas desde la API...</h3>
+        <div id="opciones-respuesta" style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem;">
+          <!-- Botones inyectados dinámicamente con JS -->
+        </div>
+      </div>
+
+      <p id="mensaje-feedback"></p>
+
+      <div class="acciones">
+        <button id="btn-siguiente" class="btn" style="display: none;">Siguiente Pregunta</button>
+        <button id="btn-iniciar" class="btn">Comenzar Trivia</button>
+      </div>
+    </section>
+  </main>
 
   <footer>
     <p>Informática General 2026 - Trabajo Práctico 1</p>

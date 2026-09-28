@@ -14,16 +14,58 @@
     <nav>
       <ul>
         <li><a href="index.html">Inicio</a></li>
-        <li><a href="cartas.html" class="activo">Cartas</a></li>
+        <li><a href="cartas.html">Cartas</a></li>
         <li><a href="dados.html">Dados</a></li>
         <li><a href="trivia.html">Trivia</a></li>
-        <li><a href="puntajes.html">Puntajes</a></li>
+        <li><a href="puntajes.html" class="activo">Puntajes</a></li>
         <li><a href="creditos.html">Créditos</a></li>
       </ul>
     </nav>
   </header>
 
- 
+ <main>
+    <section class="panel">
+      <h2>Tabla de Récords</h2>
+      <p>Puntuaciones históricas guardadas localmente en tu navegador mediante Web Storage (localStorage).</p>
+      <button id="btn-limpiar" class="btn btn-secondary" style="margin-top: 0.5rem; font-size: 0.85rem;">Borrar Récords</button>
+    </section>
+
+    <section class="panel">
+      <h3>🃏 Récords en Cartas</h3>
+      <table class="tabla-records">
+        <thead>
+          <tr><th>Posición</th><th>Jugador</th><th>Puntos</th><th>Fecha</th></tr>
+        </thead>
+        <tbody id="tabla-cartas">
+          <!-- Renderizado dinámico con JS -->
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h3>🎲 Récords en Dados</h3>
+      <table class="tabla-records">
+        <thead>
+          <tr><th>Posición</th><th>Jugador</th><th>Turnos usados</th><th>Fecha</th></tr>
+        </thead>
+        <tbody id="tabla-dados">
+          <!-- Renderizado dinámico con JS -->
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h3>⏱️ Récords en Trivia</h3>
+      <table class="tabla-records">
+        <thead>
+          <tr><th>Posición</th><th>Jugador</th><th>Puntos</th><th>Fecha</th></tr>
+        </thead>
+        <tbody id="tabla-trivia">
+          <!-- Renderizado dinámico con JS -->
+        </tbody>
+      </table>
+    </section>
+  </main>
 
   <footer>
     <p>Informática General 2026 - Trabajo Práctico 1</p>

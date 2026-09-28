@@ -14,8 +14,8 @@
     <nav>
       <ul>
         <li><a href="index.html">Inicio</a></li>
-        <li><a href="cartas.html" class="activo">Cartas</a></li>
-        <li><a href="dados.html">Dados</a></li>
+        <li><a href="cartas.html">Cartas</a></li>
+        <li><a href="dados.html" class="activo">Dados</a></li>
         <li><a href="trivia.html">Trivia</a></li>
         <li><a href="puntajes.html">Puntajes</a></li>
         <li><a href="creditos.html">Créditos</a></li>
@@ -23,6 +23,34 @@
     </nav>
   </header>
 
+<main>
+    <section class="panel">
+      <h2>El Cerdo (Pig Dice Game)</h2>
+      <p>Lanzá los 2 dados para sumar puntos al pozo del turno. Si sacás al menos un <strong>1</strong>, perdés lo acumulado en este turno y pasás la ronda. ¡Plantate para guardar los puntos en tu marcador global antes de que sea tarde!</p>
+    </section>
+
+    <section class="panel tablero-juego">
+      <div class="indicador-estado">
+        <span>Puntaje Total: <span id="total-puntos">0</span> / 100</span>
+        <span>Pozo Actual: <span id="pozo-actual">0</span></span>
+        <span>Turno: <span id="turno">1</span></span>
+      </div>
+
+      <!-- Zona de imágenes con al menos 2 dados -->
+      <div class="zona-visual" id="zona-dados">
+        <img id="dado-1" src="img/dados/dado1.png" alt="Dado 1">
+        <img id="dado-2" src="img/dados/dado1.png" alt="Dado 2">
+      </div>
+
+      <p id="mensaje-estado">Presioná "Lanzar Dados" para iniciar tu turno.</p>
+
+      <div class="acciones">
+        <button id="btn-lanzar" class="btn">🎲 Lanzar Dados</button>
+        <button id="btn-plantarse" class="btn btn-secondary" disabled>📥 Plantarse (Guardar)</button>
+        <button id="btn-reiniciar" class="btn btn-secondary">Reiniciar Partida</button>
+      </div>
+    </section>
+  </main>
  
 
   <footer>

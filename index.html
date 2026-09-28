@@ -13,8 +13,8 @@
     <a href="index.html" class="logo">Arcade IG2026</a>
     <nav>
       <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="cartas.html" class="activo">Cartas</a></li>
+        <li><a href="index.html" class="activo">Inicio</a></li>
+        <li><a href="cartas.html">Cartas</a></li>
         <li><a href="dados.html">Dados</a></li>
         <li><a href="trivia.html">Trivia</a></li>
         <li><a href="puntajes.html">Puntajes</a></li>
@@ -22,6 +22,36 @@
       </ul>
     </nav>
   </header>
+
+  <main>
+    <section class="panel">
+      <h1>Bienvenido a Arcade IG2026</h1>
+      <p>Una plataforma interactiva desarrollada con HTML5, CSS y JavaScript que pone a prueba tu suerte, estrategia y conocimientos.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Nuestros Juegos</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem;">
+        <article class="panel" style="background-color: #12151e; text-align: center;">
+          <h3>🃏 Mayor o Menor</h3>
+          <p>Adiviná el valor de la siguiente carta sin perder tus vidas.</p>
+          <a href="cartas.html" class="btn" style="margin-top: 1rem;">Jugar Cartas</a>
+        </article>
+        
+        <article class="panel" style="background-color: #12151e; text-align: center;">
+          <h3>🎲 El Cerdo (Pig Dice)</h3>
+          <p>Tirá los dados, acumulá puntos y decidí cuándo plantarte antes de que salga un 1.</p>
+          <a href="dados.html" class="btn" style="margin-top: 1rem;">Jugar Dados</a>
+        </article>
+
+        <article class="panel" style="background-color: #12151e; text-align: center;">
+          <h3>⏱️ Trivia Contrarreloj</h3>
+          <p>Preguntas en tiempo real consultadas vía API con temporizador por ronda.</p>
+          <a href="trivia.html" class="btn" style="margin-top: 1rem;">Jugar Trivia</a>
+        </article>
+      </div>
+    </section>
+  </main>
 
   
   <footer>
